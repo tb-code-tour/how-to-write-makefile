@@ -11,15 +11,13 @@ branches:
     - dev
 
 install:
+  # Install Python packages
   - pip install -r requirements.txt
-  # Install TeXLive
-  - curl -sSL https://gist.githubusercontent.com/seisman/ad00252a9f03fc644146a11e6983d9c5/raw/install-tl.sh -o install-tl.sh
-  - sudo bash install-tl.sh
-  - source ~/.bash_profile
-  - export TLMGR=`which tlmgr`
-  - sudo $TMLGR install letltxmacro
-  # update texlive
-  - sudo $TLMGR update --self --all
+  # Install tinytex (https://github.com/yihui/tinytex)
+  - wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh;
+  - tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
+        float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
+        pdftexcmds
 
 script:
   - make html
